@@ -292,7 +292,7 @@ function pjax(options) {
 
     if (options.push && !options.replace) {
       // Cache current container element before replacing it
-      cachePush(pjax.state.id, context.clone().contents())
+      cachePush(pjax.state.id, context.clone(true, true).contents()); // Clone deep
 
       window.history.pushState(null, "", options.url)
     }
@@ -340,7 +340,7 @@ function onPjaxPopstate(event) {
 
         // Cache current container before replacement and inform the
         // cache which direction the history shifted.
-        cachePop(direction, pjax.state.id, container.clone().contents())
+        cachePop(direction, pjax.state.id, container.clone(true, true).contents()) // Clone deep
       }
 
       var popstateEvent = $.Event('pjax:popstate', {
